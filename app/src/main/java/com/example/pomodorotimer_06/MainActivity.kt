@@ -66,17 +66,19 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    currentCountDownTimer?.cancel()
-                    // 실제로 이 값이 null 이면 카운트다운타이머가 취소되어 없다는 것이므로 취소 후 실제로 null을 넣어주는 것이 코드 상에서 로그를 확인하기도 깔끔해진다.
-                    currentCountDownTimer = null
-
+                    stopCountDown()
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
                     // ?:은 엘비스operater (좌측에 있는 값이 null일 경우 우측에 있는 값을 리턴한다.)
                     seekBar ?: return
 
-                    startCountDown(seekBar)
+                    if(seekBar.progress == 0){
+                        stopCountDown()
+                    }else{
+                        startCountDown(seekBar)
+                    }
+
 
                 }
 
@@ -94,6 +96,14 @@ class MainActivity : AppCompatActivity() {
         tickingSoundId?.let { soundId ->
             soundPool.play(soundId, 1F, 1F, 0, -1, 1F)
         }
+    }
+
+    private fun stopCountDown() {
+        currentCountDownTimer?.cancel()
+        // 실제로 이 값이 null 이면 카운트다운타이머가 취소되어 없다는 것이므로 취소 후 실제로 null을 넣어주는 것이 코드 상에서 로그를 확인하기도 깔끔해진다.
+        currentCountDownTimer = null
+        soundPool.autoPause()
+
     }
 
     // 자바의 경우 리턴을 해주어서 카운트다운 타이머를 반환해주는 형식.
@@ -137,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateRemainTimes(remainMillis: Long) {
         val remainSecs = remainMillis / 1000
 
-        remainMinTv.text = "%02d".format(remainSecs / 60)
+        remainMinTv.text = "%02d'".format(remainSecs / 60)
         remainSecTv.text = "%02d".format(remainSecs % 60)
     }
 

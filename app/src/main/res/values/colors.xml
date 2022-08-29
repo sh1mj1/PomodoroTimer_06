@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="pomodoro_red">#FFD32F2F</color>
+    <color name="transparent">#00000000</color>
+
+<!--    ㅏㅇㅍ에 있는 숫자 2개씩 알파값, 레드, 그린, 블루 값 특성임. 맨 앞에 0을 두개 붙이면 알파값이 0 -> 투명한 색상이 됨.-->
+
 </resources>
